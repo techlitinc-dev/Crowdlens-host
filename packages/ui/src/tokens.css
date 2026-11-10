@@ -1,0 +1,66 @@
+/* CrowdLens design tokens — design.md §2. Primitive → semantic → component. */
+
+:root {
+  /* primitives */
+  --ink-950: #0a0a0a;
+  --ink-900: #141414;
+  --ink-850: #1a1a1a;
+  --paper-100: #f4ecd8;
+  --signal-500: #00d9a3;
+  --sage-400: #85c093;
+  --forest-700: #117025;
+  --slate-400: #9ca3af;
+  --slate-500: #6b7280;
+  --risk-500: #ff4444;
+
+  /* semantic */
+  --color-bg: var(--ink-950);
+  --color-bg-raised: var(--ink-900);
+  --color-bg-inset: var(--ink-850);
+  --color-text: var(--paper-100);
+  --color-text-secondary: var(--slate-400);
+  --color-action: var(--signal-500);
+  --color-on-action: var(--ink-950);
+  --color-danger: var(--risk-500);
+  --color-grid-guide: oklch(0.477 0.139 145.8 / 0.35);
+  --color-border: oklch(0.944 0.028 88.8 / 0.14);
+  --color-focus: var(--signal-500);
+
+  /* type */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body: "Inter", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+
+  /* shape */
+  --radius-control: 6px;
+  --radius-panel: 10px;
+  --radius-surface: 14px;
+
+  /* spacing scale (4/8) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-24: 96px;
+  --space-32: 128px;
+}
+
+.cl-focus:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

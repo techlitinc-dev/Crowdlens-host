@@ -1,0 +1,76 @@
+{
+  "fixture_version": "sample-report-v1",
+  "label": "ILLUSTRATIVE SAMPLE",
+  "title": "Launch announcement / APAC fintech — synthetic audience report",
+  "summary": {
+    "recommendation": "Announce pricing in the launch post, but lead with the reliability evidence and publish a cost calculator the same day.",
+    "text": "The synthetic population leans supportive overall (46% by tick 24), but the loudest objections come from a small, influential finance-reviewer segment whose concerns cascade into SMEs. The objection wave at tick 12 was driven by per-seat cost uncertainty; it softened when cost predictability messaging appeared in later ticks. Reliability-first operators moved supportive fastest when incident-history evidence was referenced directly."
+  },
+  "segments": [
+    { "name": "Cost-sensitive SMEs", "share": 0.34, "stance": "sceptical", "delta": "-0.38 vs t0", "objections": ["per-seat cost", "unbudgeted increases"], "evidence_count": 14 },
+    { "name": "Reliability-first operators", "share": 0.27, "stance": "supportive", "delta": "+0.40 vs t0", "objections": ["uptime proof"], "evidence_count": 11 },
+    { "name": "Platform builders", "share": 0.16, "stance": "strongly supportive", "delta": "+0.72 vs t0", "objections": [], "evidence_count": 9 },
+    { "name": "Regional partners", "share": 0.14, "stance": "neutral", "delta": "+0.12 vs t0", "objections": ["local billing"], "evidence_count": 6 },
+    { "name": "Finance reviewers", "share": 0.09, "stance": "sceptical", "delta": "-0.18 vs t0", "objections": ["CFO memo", "audit trail"], "evidence_count": 8 }
+  ],
+  "claims": [
+    {
+      "claim_id": "clm-cost-cascade",
+      "text": "The tick-12 objection wave originated in finance reviewers and cascaded into SME cohorts.",
+      "confidence_label": "exploratory",
+      "method": "llm_generated_synthesis",
+      "evidence": [
+        { "type": "source_chunk", "id": "pricing-brief.md §2", "relation": "context", "excerpt": "Segment A cares about cost; Segment B cares about reliability." },
+        { "type": "event_aggregate", "id": "run/sample/tick-12/finance-reviewers", "relation": "supports", "excerpt": "Objection intensity 0.62; cross-segment citation rate 3.1x baseline." },
+        { "type": "active_agent_response", "id": "resp/0a91c4", "relation": "example", "excerpt": "Unbudgeted increases need a CFO memo, not a blog post.", "provenance": "LLM-GENERATED" }
+      ]
+    },
+    {
+      "claim_id": "clm-reliability-response",
+      "text": "Referencing uptime evidence moved reliability-first operators supportive faster than any other message class.",
+      "confidence_label": "supported",
+      "method": "llm_generated_synthesis",
+      "evidence": [
+        { "type": "source_chunk", "id": "pricing-brief.md §2", "relation": "context", "excerpt": "Segment B cares about reliability." },
+        { "type": "event_aggregate", "id": "run/sample/tick-18/reliability-first-ops", "relation": "supports", "excerpt": "41% of supportive replies cited uptime evidence." },
+        { "type": "active_agent_response", "id": "resp/77be10", "relation": "example", "excerpt": "Show me the incident history and I will show you my migration plan.", "provenance": "LLM-GENERATED" }
+      ]
+    },
+    {
+      "claim_id": "clm-partner-uncertainty",
+      "text": "Partner uncertainty resolves late; localised billing support matters more than price for this segment.",
+      "confidence_label": "exploratory",
+      "method": "llm_generated_synthesis",
+      "evidence": [
+        { "type": "source_chunk", "id": "launch-plan.md §1", "relation": "context", "excerpt": "The rollout targets APAC first." },
+        { "type": "event_aggregate", "id": "run/sample/tick-24/regional-partners", "relation": "supports", "excerpt": "Stance recovered +0.20 once local billing was addressed in-message." },
+        { "type": "active_agent_response", "id": "resp/c30aa7", "relation": "example", "excerpt": "We will adopt when invoicing supports our tax regime.", "provenance": "LLM-GENERATED" }
+      ]
+    }
+  ],
+  "objection_timeline": [
+    { "tick": 1, "label": "Announcement read; wait-and-see dominates.", "intensity": 0.12 },
+    { "tick": 8, "label": "Cost questions start clustering in SME cohorts.", "intensity": 0.22 },
+    { "tick": 12, "label": "Per-seat objection cascades from finance reviewers.", "intensity": 0.62 },
+    { "tick": 18, "label": "Uptime evidence dampens reliability objections.", "intensity": 0.31 },
+    { "tick": 24, "label": "Residual cost concerns; calculator request peaks.", "intensity": 0.2 }
+  ],
+  "method": {
+    "population_method": "synthetic hybrid (columnar cohort kernel + bounded direct reasoning)",
+    "logical_population": 1000000,
+    "active_reasoning": 4800,
+    "active_surrogate_ratio": "0.48%",
+    "provider": "mock (illustrative fixture)",
+    "model": "mock-sim-1",
+    "prompt_version": "prompts-2026-11-09",
+    "seed": 424242,
+    "rate_card_version": "credits-2026-11-09"
+  },
+  "limitations": [
+    "Synthetic agents are not real people; treat outputs as hypotheses, not measurements.",
+    "Fixture data is illustrative and does not come from a customer workspace.",
+    "Segments are derived from two source documents only; real runs require a richer evidence base.",
+    "No real-world validation has been performed on this scenario."
+  ],
+  "disclaimer": "This report describes synthetic agent behaviour generated for scenario exploration. It is not a prediction of real-world outcomes and must not be presented as market research or investment advice."
+}

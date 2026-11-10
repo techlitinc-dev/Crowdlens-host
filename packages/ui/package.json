@@ -1,0 +1,25 @@
+{
+  "name": "@crowdlens/ui",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "CrowdLens Vue design system: observatory tokens + primitives",
+  "exports": {
+    ".": "./src/index.ts",
+    "./tokens.css": "./src/tokens.css"
+  },
+  "scripts": {
+    "build": "vue-tsc -p tsconfig.json --noEmit",
+    "lint": "vue-tsc -p tsconfig.json --noEmit",
+    "typecheck": "vue-tsc -p tsconfig.json --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "vue": "3.5.13"
+  },
+  "devDependencies": {
+    "typescript": "5.6.3",
+    "vue-tsc": "2.1.10",
+    "vitest": "2.1.9"
+  }
+}

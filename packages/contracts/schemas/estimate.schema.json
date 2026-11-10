@@ -1,0 +1,25 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "crowdlens/estimate@v1",
+  "title": "SimulationEstimate",
+  "type": "object",
+  "required": ["rate_card_version", "credits_low", "credits_high", "hard_cap", "drivers"],
+  "additionalProperties": false,
+  "properties": {
+    "rate_card_version": { "type": "string" },
+    "credits_low": { "type": "integer", "minimum": 0 },
+    "credits_high": { "type": "integer", "minimum": 0 },
+    "hard_cap": { "type": "integer", "minimum": 1 },
+    "drivers": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["factor", "credits"],
+        "properties": {
+          "factor": { "type": "string" },
+          "credits": { "type": "integer" }
+        }
+      }
+    }
+  }
+}

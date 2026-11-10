@@ -1,0 +1,138 @@
+{
+  "fixture_version": "observatory-fixture-v1",
+  "label": "ILLUSTRATIVE SAMPLE",
+  "scenario": {
+    "name": "Launch announcement / APAC fintech",
+    "decision_question": "Should we announce the new pricing in the launch post?",
+    "total_ticks": 24,
+    "default_tick": 18,
+    "logical_population": 1000000,
+    "active_reasoning": 4800,
+    "segments": [
+      {
+        "id": "cost-sensitive-smes",
+        "name": "Cost-sensitive SMEs",
+        "share": 0.34,
+        "stance_default": -0.42,
+        "nodes": 320,
+        "active_share": 0.2,
+        "summary": "React strongly to per-seat pricing; adoption stalls when costs feel unpredictable.",
+        "source_excerpt": {
+          "locator": "pricing-brief.md §2",
+          "text": "Segment A cares about cost; Segment B cares about reliability. The rollout targets APAC first."
+        },
+        "agent_quote": "If the price climbs with every seat, we will stay on the spreadsheet another year."
+      },
+      {
+        "id": "reliability-first-ops",
+        "name": "Reliability-first operators",
+        "share": 0.27,
+        "stance_default": 0.18,
+        "nodes": 260,
+        "active_share": 0.35,
+        "summary": "Supportive when uptime evidence is shown first; sceptical of marketing claims.",
+        "source_excerpt": {
+          "locator": "pricing-brief.md §2",
+          "text": "Segment B cares about reliability."
+        },
+        "agent_quote": "Show me the incident history and I will show you my migration plan."
+      },
+      {
+        "id": "platform-builders",
+        "name": "Platform builders",
+        "share": 0.16,
+        "stance_default": 0.55,
+        "nodes": 210,
+        "active_share": 0.6,
+        "summary": "Early adopters; amplify API and webhook quality, drive supportive narratives.",
+        "source_excerpt": {
+          "locator": "launch-plan.md §1",
+          "text": "We will announce the new pricing on Monday."
+        },
+        "agent_quote": "The new webhook semantics alone justify the upgrade for us."
+      },
+      {
+        "id": "regional-partners",
+        "name": "Regional partners",
+        "share": 0.14,
+        "stance_default": -0.05,
+        "nodes": 190,
+        "active_share": 0.15,
+        "summary": "Wait for localised billing; uncertainty resolves late in the run.",
+        "source_excerpt": {
+          "locator": "launch-plan.md §1",
+          "text": "The rollout targets APAC first."
+        },
+        "agent_quote": "We will adopt when invoicing supports our tax regime."
+      },
+      {
+        "id": "finance-reviewers",
+        "name": "Finance reviewers",
+        "share": 0.09,
+        "stance_default": -0.2,
+        "nodes": 220,
+        "active_share": 0.4,
+        "summary": "Small but influential; their objections cascade into SME and partner segments.",
+        "source_excerpt": {
+          "locator": "pricing-brief.md §2",
+          "text": "We will announce the new pricing on Monday."
+        },
+        "agent_quote": "Unbudgeted increases need a CFO memo, not a blog post."
+      }
+    ]
+  },
+  "providers": [
+    {
+      "id": "gemini",
+      "label": "Gemini",
+      "model_label": "Gemini 2.5 Flash",
+      "credit_rate": 1,
+      "note": "AI Studio key, structured output"
+    },
+    {
+      "id": "openrouter",
+      "label": "OpenRouter",
+      "model_label": "gpt-4o-mini (via OpenRouter)",
+      "credit_rate": 11,
+      "note": "Provider-agnostic route, data_collection: deny"
+    }
+  ],
+  "credit_model": {
+    "base_per_tick": 9,
+    "currency": "credits",
+    "disclaimer": "Illustrative only. The authoritative estimate is computed per run before confirmation."
+  },
+  "timeline": [
+    { "tick": 1, "adoption": 0.04, "support": 0.31, "objection": 0.12, "uncertainty": 0.53 },
+    { "tick": 4, "adoption": 0.07, "support": 0.33, "objection": 0.15, "uncertainty": 0.45 },
+    { "tick": 8, "adoption": 0.11, "support": 0.35, "objection": 0.22, "uncertainty": 0.32 },
+    { "tick": 12, "adoption": 0.16, "support": 0.33, "objection": 0.31, "uncertainty": 0.2 },
+    { "tick": 16, "adoption": 0.22, "support": 0.36, "objection": 0.3, "uncertainty": 0.12 },
+    { "tick": 18, "adoption": 0.26, "support": 0.38, "objection": 0.31, "uncertainty": 0.05 },
+    { "tick": 20, "adoption": 0.31, "support": 0.41, "objection": 0.28, "uncertainty": 0.05 },
+    { "tick": 24, "adoption": 0.38, "support": 0.46, "objection": 0.2, "uncertainty": 0.04 }
+  ],
+  "segment_ticks": {
+    "cost-sensitive-smes": { "1": -0.1, "8": -0.3, "12": -0.48, "18": -0.55, "24": -0.38 },
+    "reliability-first-ops": { "1": 0.05, "8": 0.12, "12": 0.2, "18": 0.26, "24": 0.4 },
+    "platform-builders": { "1": 0.3, "8": 0.42, "12": 0.5, "18": 0.6, "24": 0.72 },
+    "regional-partners": { "1": 0.0, "8": -0.05, "12": -0.1, "18": -0.08, "24": 0.12 },
+    "finance-reviewers": { "1": -0.05, "8": -0.2, "12": -0.35, "18": -0.4, "24": -0.18 }
+  },
+  "events": [
+    {
+      "tick": 12,
+      "segment": "cost-sensitive-smes",
+      "type": "objection_spread",
+      "label": "Per-seat cost objection cascades from finance reviewers into SME cohorts.",
+      "provenance": "SIMULATED AGGREGATE"
+    },
+    {
+      "tick": 18,
+      "segment": "reliability-first-ops",
+      "type": "evidence_response",
+      "label": "Uptime evidence referenced in 41% of supportive replies this tick.",
+      "provenance": "SIMULATED AGGREGATE"
+    }
+  ]
+}

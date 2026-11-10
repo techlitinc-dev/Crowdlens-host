@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "crowdlens/ledger@v1",
+  "title": "CreditLedgerEntry",
+  "type": "object",
+  "required": ["workspace_id", "entry_type", "amount", "idempotency_key", "rate_card_version", "occurred_at"],
+  "additionalProperties": false,
+  "properties": {
+    "workspace_id": { "type": "string", "format": "uuid" },
+    "entry_type": { "enum": ["plan_grant", "topup_grant", "reservation", "reservation_release", "usage_debit", "adjustment", "expiration"] },
+    "amount": { "type": "integer" },
+    "idempotency_key": { "type": "string", "minLength": 8, "maxLength": 200 },
+    "rate_card_version": { "type": "string" },
+    "actor": { "type": "string" },
+    "event_ref": { "type": "string" },
+    "simulation_id": { "type": "string" },
+    "reason": { "type": "string" },
+    "occurred_at": { "type": "string", "format": "date-time" }
+  }
+}

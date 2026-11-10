@@ -1,0 +1,73 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.34.9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm -r run typecheck
+
+      - name: Unit tests (TypeScript)
+        run: pnpm -r run test
+
+      - name: Python contracts parity
+        run: |
+          cd packages/contracts/python
+          uv run pytest -q
+
+      - name: Build
+        run: pnpm -r run build
+
+  integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10.34.9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Integration suite boots an embedded Postgres + the full Nest app.
+      - name: Integration tests (embedded Postgres)
+        run: pnpm --filter @crowdlens/control-api run test:integration
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v5
+
+      - name: Simulation kernel tests
+        run: |
+          cd services/simulation-worker
+          uv run pytest -q
+
+      - name: Ruff (python services)
+        run: |
+          for svc in services/graph-worker services/simulation-worker services/report-worker services/common/crowdlens_worker; do
+            (cd "$svc" && uv run ruff check .)
+          done

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "crowdlens/run-manifest@v1",
+  "title": "RunManifest",
+  "type": "object",
+  "required": ["schema_version", "provider", "model_id", "model_revision", "prompt_bundle_version", "structured_schema_version", "embedding_profile_id", "random_seed", "rate_card_version"],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": 1 },
+    "provider": { "enum": ["gemini", "openrouter", "mock"] },
+    "model_id": { "type": "string", "minLength": 1 },
+    "model_revision": { "type": "string", "minLength": 1 },
+    "prompt_bundle_version": { "type": "string", "minLength": 1 },
+    "structured_schema_version": { "type": "string", "minLength": 1 },
+    "embedding_profile_id": { "type": "string", "minLength": 1 },
+    "routing_policy": { "type": "object" },
+    "random_seed": { "type": "integer" },
+    "rate_card_version": { "type": "string", "minLength": 1 }
+  }
+}

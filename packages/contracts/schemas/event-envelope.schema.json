@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "crowdlens/event-envelope@v1",
+  "title": "DomainEventEnvelope",
+  "type": "object",
+  "required": ["event_id", "event_type", "event_version", "occurred_at", "workspace_id", "aggregate_id", "payload"],
+  "additionalProperties": false,
+  "properties": {
+    "event_id": { "type": "string", "format": "uuid" },
+    "event_type": { "type": "string", "pattern": "^[a-z]+(\\.[a-z_]+)+$" },
+    "event_version": { "type": "integer", "minimum": 1 },
+    "occurred_at": { "type": "string", "format": "date-time" },
+    "workspace_id": { "type": "string", "format": "uuid" },
+    "aggregate_id": { "type": "string" },
+    "correlation_id": { "type": "string" },
+    "causation_id": { "type": "string" },
+    "payload": { "type": "object" }
+  }
+}

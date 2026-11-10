@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.output/
+.nuxt/
+.data/
+*.log
+.env
+.env.local
+coverage/
+__pycache__/
+.pytest_cache/
+.venv/
+*.egg-info/
+playwright-report/
+test-results/
+.DS_Store

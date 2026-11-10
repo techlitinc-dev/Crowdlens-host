@@ -1,0 +1,101 @@
+{
+  "description": "Golden canonical-JSON fingerprint vectors shared by the TS and Python implementations. fingerprint = sha256hex(canonical_json(input)).",
+  "algorithm": {
+    "objects": "keys sorted by UTF-16 code units",
+    "whitespace": "none",
+    "strings": "JSON-escaped, non-ASCII preserved",
+    "numbers": "integers only; floats rejected"
+  },
+  "vectors": [
+    {
+      "name": "empty-object",
+      "input": {},
+      "canonical": "{}",
+      "fingerprint": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a"
+    },
+    {
+      "name": "empty-array",
+      "input": [],
+      "canonical": "[]",
+      "fingerprint": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "name": "scalars",
+      "input": {
+        "b": 1,
+        "a": true,
+        "c": null
+      },
+      "canonical": "{\"a\":true,\"b\":1,\"c\":null}",
+      "fingerprint": "7b507220c2c68d7328b1ecd781486e0d0470f4f0d3d69768a6fdca24ca638f7b"
+    },
+    {
+      "name": "key-sort-utf16",
+      "input": {
+        "z": 1,
+        "aa": 2,
+        "a": 3,
+        "Z": 4
+      },
+      "canonical": "{\"Z\":4,\"a\":3,\"aa\":2,\"z\":1}",
+      "fingerprint": "9dc0bf83755badda1fe22f6ee8e67c30295e1e150544ca4c007b5384081ad727"
+    },
+    {
+      "name": "nested",
+      "input": {
+        "outer": {
+          "b": [
+            1,
+            2,
+            {
+              "y": "x"
+            }
+          ],
+          "a": "v"
+        },
+        "list": []
+      },
+      "canonical": "{\"list\":[],\"outer\":{\"a\":\"v\",\"b\":[1,2,{\"y\":\"x\"}]}}",
+      "fingerprint": "d52ddb012faf0c07ecced34faf93a44776f114ac8937d50b9dda73f27608cb18"
+    },
+    {
+      "name": "unicode",
+      "input": {
+        "text": "héllo — 世界",
+        "emoji": "🙂"
+      },
+      "canonical": "{\"emoji\":\"🙂\",\"text\":\"héllo — 世界\"}",
+      "fingerprint": "83fdd3655902e9517f4784e3f87487f7c2b749998951f3b45300efe8da0a3d55"
+    },
+    {
+      "name": "escapes",
+      "input": {
+        "s": "quote\" backslash\\ newline\n tab\t"
+      },
+      "canonical": "{\"s\":\"quote\\\" backslash\\\\ newline\\n tab\\t\"}",
+      "fingerprint": "60cc0bd87ec15e01750f95ffc0b3f5730ee0ea7e511a8c5a798269e3d68cd0dd"
+    },
+    {
+      "name": "cache-key-shape",
+      "input": {
+        "workspace_id": "11111111-2222-3333-4444-555555555555",
+        "acl_epoch": 17,
+        "operation_version": "ner-v3",
+        "provider": "gemini",
+        "model_id": "gemini-2.5-flash",
+        "prompt_bundle": "git-sha",
+        "schema_hash": "sha256",
+        "source_hashes": [
+          "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"
+        ],
+        "parameters": {
+          "temperature": 0
+        },
+        "random_seed": 12345
+      },
+      "canonical": "{\"acl_epoch\":17,\"model_id\":\"gemini-2.5-flash\",\"operation_version\":\"ner-v3\",\"parameters\":{\"temperature\":0},\"prompt_bundle\":\"git-sha\",\"provider\":\"gemini\",\"random_seed\":12345,\"schema_hash\":\"sha256\",\"source_hashes\":[\"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb\"],\"workspace_id\":\"11111111-2222-3333-4444-555555555555\"}",
+      "fingerprint": "f8456521a96f6ffbc1662a8990deebc00bd1f507d7e8aaf5cedfdb004a5bf37f"
+    }
+  ]
+}

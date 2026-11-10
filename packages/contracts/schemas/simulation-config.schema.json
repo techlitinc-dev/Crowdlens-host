@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "crowdlens/simulation-config@v1",
+  "title": "SimulationConfig",
+  "type": "object",
+  "required": ["project_id", "decision_question", "population", "ticks", "max_credits"],
+  "additionalProperties": false,
+  "properties": {
+    "project_id": { "type": "string", "format": "uuid" },
+    "decision_question": { "type": "string", "minLength": 8, "maxLength": 2000 },
+    "target_audience": { "type": "string", "maxLength": 1000 },
+    "platforms": { "type": "array", "items": { "type": "string" }, "maxItems": 16 },
+    "assumptions": { "type": "string", "maxLength": 4000 },
+    "population": { "type": "integer", "minimum": 100, "maximum": 1000000 },
+    "active_budget": { "type": "integer", "minimum": 16, "maximum": 100000 },
+    "reasoning_depth": { "enum": ["standard", "deep"] },
+    "ticks": { "type": "integer", "minimum": 1, "maximum": 200 },
+    "seed_policy": { "enum": ["random", "fixed"] },
+    "seed": { "type": "integer" },
+    "provider": { "enum": ["gemini", "openrouter", "mock"] },
+    "model_id": { "type": "string" },
+    "report_depth": { "enum": ["standard", "detailed"] }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "name": "@crowdlens/contracts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "CrowdLens JSON Schema contracts with generated-equivalent TS/Pydantic types and canonical fingerprints",
+  "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "lint": "tsc -p tsconfig.json --noEmit",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "zod": "3.23.8"
+  },
+  "devDependencies": {
+    "@types/node": "22.10.2",
+    "typescript": "5.6.3",
+    "vitest": "2.1.9"
+  }
+}

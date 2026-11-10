@@ -1,0 +1,71 @@
+# Local/production-like dependencies for CrowdLens.
+# This machine has no Docker at build time; the verified local path uses
+# embedded Postgres + in-memory cache + filesystem object storage instead.
+# These services are the production-shaped targets and are exercised in CI/staging.
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: crowdlens
+      POSTGRES_PASSWORD: crowdlens
+      POSTGRES_DB: crowdlens
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U crowdlens"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - redisdata:/data
+
+  neo4j:
+    image: neo4j:5-community
+    environment:
+      NEO4J_AUTH: neo4j/crowdlens-dev-neo4j
+      NEO4J_server_memory_heap_max__size: 1G
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - neo4jdata:/data
+
+  minio:
+    image: minio/minio:latest
+    command: ["server", "/data", "--console-address", ":9001"]
+    environment:
+      MINIO_ROOT_USER: crowdlens
+      MINIO_ROOT_PASSWORD: crowdlens-dev-minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - miniodata:/data
+
+  temporal:
+    image: temporalio/auto-setup:1.24
+    environment:
+      DB: postgres12
+      DB_PORT: 5432
+      POSTGRES_USER: crowdlens
+      POSTGRES_PWD: crowdlens
+      POSTGRES_SEEDS: postgres
+      DYNAMIC_CONFIG_FILE_PATH: /etc/temporal/dynamicconfig.yaml
+    ports:
+      - "7233:7233"
+    depends_on:
+      - postgres
+
+volumes:
+  pgdata:
+  redisdata:
+  neo4jdata:
+  miniodata:
